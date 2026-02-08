@@ -1,0 +1,44 @@
+# RandFusion Configuration
+# All tunable parameters in one place for reproducibility.
+
+# --- Random seed for full reproducibility ---
+random_seed: 42
+
+# --- Token parameters ---
+token:
+  length_bits: 128          # Each token is 128 bits
+  batch_size: 1000          # Tokens per evaluation batch
+
+# --- Dataset generation ---
+dataset:
+  num_strong_batches: 500   # Number of strong-randomness batches
+  num_weak_batches: 500     # Number of weak-randomness batches
+  output_dir: "data/raw"
+  processed_dir: "data/processed"
+
+# --- Statistical tests ---
+features:
+  nist_block_size: 128      # Block size for NIST block frequency test
+  autocorrelation_lags: [1, 2, 4, 8, 16]
+  compression_level: 6      # zlib compression level
+
+# --- ML training ---
+model:
+  test_size: 0.15           # Fraction held out for final test
+  val_size: 0.15            # Fraction held out for validation
+  cv_folds: 5               # Cross-validation folds for stacking
+  output_dir: "models"
+
+  # Hyperparameter search
+  tuning:
+    enabled: true
+    n_iter: 50              # Number of random search iterations
+
+# --- Explainability ---
+explainability:
+  shap_max_samples: 200     # Max samples for SHAP computation (speed)
+
+# --- Logging ---
+logging:
+  level: "INFO"
+  format: "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
