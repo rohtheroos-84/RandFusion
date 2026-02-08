@@ -1,0 +1,22 @@
+True label: 0 (WEAK)
+
+============================================================
+  VERDICT: STRONG  (confidence: 81.8%)
+============================================================
+
+The token batch is classified as STRONG (confidence: 81.8%). The most influential factor is the NIST longest-run-of-ones test p-value. Overall, 5 features support this verdict.
+
+Top features SUPPORTING the verdict:
+   -> STRONG  nist_longest_run_p              SHAP = +0.0532
+   -> STRONG  compression_ratio               SHAP = +0.0396
+   -> STRONG  nist_longest_run_stat           SHAP = +0.0363
+   -> STRONG  nist_block_freq_stat            SHAP = +0.0282
+   -> STRONG  max_probability                 SHAP = +0.0257
+
+Top features OPPOSING the verdict:
+   -> WEAK  autocorr_lag_4                  SHAP = -0.0142
+   -> WEAK  nist_serial_delta2              SHAP = -0.0071
+   -> WEAK  nist_runs_p                     SHAP = -0.0038
+   -> WEAK  nist_serial_p1                  SHAP = -0.0034
+   -> WEAK  nist_serial_p2                  SHAP = -0.0001
+============================================================
