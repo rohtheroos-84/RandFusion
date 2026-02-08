@@ -92,18 +92,18 @@
 **Goal:** Train individual classifiers and build the stacking ensemble.
 
 ### Tasks
-- [ ] Split data: 70% train / 15% validation / 15% test (stratified)
-- [ ] Train **base models**:
+- [x] Split data: 70% train / 15% validation / 15% test (stratified)
+- [x] Train **base models**:
   - Logistic Regression (with regularization)
   - Random Forest
   - Gradient Boosted Trees (XGBoost or LightGBM)
-- [ ] Evaluate each base model individually on validation set
-- [ ] Build **stacking ensemble**:
+- [x] Evaluate each base model individually on validation set
+- [x] Build **stacking ensemble**:
   - Base model predictions (probabilities) become meta-features
   - Meta-classifier: Logistic Regression (keeps it interpretable)
   - Use cross-validated predictions to avoid data leakage
-- [ ] Hyperparameter tuning (grid search or Optuna) on validation set
-- [ ] Final evaluation on held-out test set
+- [x] Hyperparameter tuning (grid search or Optuna) on validation set
+- [x] Final evaluation on held-out test set
 
 ### Deliverables
 - Trained models saved under `models/`

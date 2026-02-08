@@ -136,8 +136,8 @@ python -m src.models.evaluate
 | 1     | Synthetic dataset generation             | COMPLETED   |
 | 2     | Statistical randomness tests             | COMPLETED   |
 | 3     | Feature dataset construction             | COMPLETED   |
-| 4     | ML model training & ensemble             | IN PROGRESS |
-| 5     | Baseline comparison                      | Not started |
+| 4     | ML model training & ensemble             | COMPLETED   |
+| 5     | Baseline comparison                      | IN PROGRESS |
 | 6     | Explainability & interpretability        | Not started |
 | 7     | Evaluation, reporting & documentation    | Not started |
 
