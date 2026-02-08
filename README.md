@@ -69,7 +69,8 @@ RandFusion/
 │   ├── features/       # Statistical test implementations & feature extractor
 │   ├── models/         # ML training, ensemble, and inference
 │   ├── baselines/      # Naive baseline classifiers
-│   └── explainability/ # SHAP integration and explanation utilities
+│   ├── explainability/ # SHAP integration and explanation utilities
+│   └── evaluation/     # Final evaluation, plots, stress tests, reporting
 ├── tests/              # Unit and integration tests
 ├── PRD.md              # Product Requirements Document
 ├── PLAN.md             # Phased development plan
@@ -122,8 +123,17 @@ python -m src.features.extract_features
 # Train models
 python -m src.models.train
 
-# Evaluate
-python -m src.models.evaluate
+# Compare ML vs baselines
+python -m src.baselines.compare
+
+# Run explainability pipeline (SHAP, feature importance)
+python -m src.explainability.run_explainability
+
+# Final evaluation & reporting
+python -m src.evaluation.evaluate
+
+# Run all tests
+python -m pytest tests/ -v
 ```
 
 ---
@@ -139,7 +149,7 @@ python -m src.models.evaluate
 | 4     | ML model training & ensemble             | COMPLETED   |
 | 5     | Baseline comparison                      | COMPLETED   |
 | 6     | Explainability & interpretability        | COMPLETED   |
-| 7     | Evaluation, reporting & documentation    | IN PROGRESS |
+| 7     | Evaluation, reporting & documentation    | COMPLETED   |
 
 See [PLAN.md](PLAN.md) for detailed breakdown of each phase.
 

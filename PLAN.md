@@ -155,16 +155,16 @@
 **Goal:** Produce final results, write-up, and polish the project.
 
 ### Tasks
-- [ ] Generate **confusion matrix** on test set
-- [ ] Plot **ROC curve** and **Precision-Recall curve**
-- [ ] Compute **calibration curve** (are confidence scores reliable?)
-- [ ] Compile all results into a structured report / notebook
-- [ ] Stress-test with edge cases:
+- [x] Generate **confusion matrix** on test set
+- [x] Plot **ROC curve** and **Precision-Recall curve**
+- [x] Compute **calibration curve** (are confidence scores reliable?)
+- [x] Compile all results into a structured report / notebook
+- [x] Stress-test with edge cases:
   - Generators not seen during training
   - Varying token lengths (64, 256 bits)
   - Very small batch sizes
-- [ ] Finalize README, code comments, and docstrings
-- [ ] Clean up repository structure
+- [x] Finalize README, code comments, and docstrings
+- [x] Clean up repository structure
 
 ### Deliverables
 - Final evaluation report (notebook or PDF)
@@ -173,7 +173,7 @@
 
 ---
 
-## Phase 8 (Optional): Extensions & Hardening
+<!-- ## Phase 8 (Optional): Extensions & Hardening
 **Goal:** Stretch goals for deeper work or future iterations.
 
 ### Ideas
@@ -185,7 +185,7 @@
 - [ ] Cross-validation study on generalization to unseen generator families
 - [ ] Package as an installable Python library
 
----
+--- -->
 
 ## Technology Stack
 
