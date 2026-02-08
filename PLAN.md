@@ -24,20 +24,20 @@
 **Goal:** Create labeled datasets of strong and weak random token batches.
 
 ### Tasks
-- [ ] Implement **strong randomness generators**
+- [x] Implement **strong randomness generators**
   - Python `secrets` module (CSPRNG)
   - `os.urandom`
-- [ ] Implement **weak randomness generators** (intentionally flawed)
+- [x] Implement **weak randomness generators** (intentionally flawed)
   - Linear Congruential Generator (LCG) with small state
   - Biased coin (non-uniform bit distribution)
   - Truncated / low-entropy sources (e.g., repeating short seed)
   - Time-seeded `random.Random` with predictable seeds
   - XOR-collapsed outputs (reducing effective entropy)
-- [ ] Each generator produces batches of 1000 tokens × 128 bits
-- [ ] Label each batch: `1 = strong`, `0 = weak`
-- [ ] Generate balanced dataset (e.g., 500 strong + 500 weak batches)
-- [ ] Save dataset in a structured format (CSV/Parquet with metadata)
-- [ ] Add a data validation step to catch degenerate batches
+- [x] Each generator produces batches of 1000 tokens × 128 bits
+- [x] Label each batch: `1 = strong`, `0 = weak`
+- [x] Generate balanced dataset (e.g., 500 strong + 500 weak batches)
+- [x] Save dataset in a structured format (CSV/Parquet with metadata)
+- [x] Add a data validation step to catch degenerate batches
 
 ### Deliverables
 - `data/raw/` directory with labeled token batches
