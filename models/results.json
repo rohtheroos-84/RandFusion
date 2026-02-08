@@ -1,0 +1,181 @@
+{
+  "feature_names": [
+    "nist_frequency_p",
+    "nist_frequency_stat",
+    "nist_block_freq_p",
+    "nist_block_freq_stat",
+    "nist_runs_p",
+    "nist_runs_stat",
+    "nist_longest_run_p",
+    "nist_longest_run_stat",
+    "nist_serial_p1",
+    "nist_serial_p2",
+    "nist_serial_delta1",
+    "nist_serial_delta2",
+    "nist_approx_entropy_p",
+    "nist_approx_entropy_stat",
+    "nist_approx_entropy_apen",
+    "nist_cusum_fwd_p",
+    "nist_cusum_fwd_stat",
+    "nist_cusum_bwd_p",
+    "nist_cusum_bwd_stat",
+    "shannon_entropy",
+    "min_entropy",
+    "max_probability",
+    "run_mean",
+    "run_std",
+    "run_max",
+    "num_runs",
+    "autocorr_lag_1",
+    "autocorr_lag_2",
+    "autocorr_lag_4",
+    "autocorr_lag_8",
+    "autocorr_lag_16",
+    "compression_ratio"
+  ],
+  "split_sizes": {
+    "train": 700,
+    "val": 150,
+    "test": 150
+  },
+  "validation_results": {
+    "logistic_regression": {
+      "accuracy": 0.8133333333333334,
+      "precision": 0.7281553398058253,
+      "recall": 1.0,
+      "f1": 0.8426966292134831,
+      "roc_auc": 0.8666666666666667,
+      "confusion_matrix": [
+        [
+          47,
+          28
+        ],
+        [
+          0,
+          75
+        ]
+      ]
+    },
+    "random_forest": {
+      "accuracy": 0.82,
+      "precision": 0.7352941176470589,
+      "recall": 1.0,
+      "f1": 0.847457627118644,
+      "roc_auc": 0.8705777777777778,
+      "confusion_matrix": [
+        [
+          48,
+          27
+        ],
+        [
+          0,
+          75
+        ]
+      ]
+    },
+    "xgboost": {
+      "accuracy": 0.8133333333333334,
+      "precision": 0.7640449438202247,
+      "recall": 0.9066666666666666,
+      "f1": 0.8292682926829268,
+      "roc_auc": 0.8899555555555555,
+      "confusion_matrix": [
+        [
+          54,
+          21
+        ],
+        [
+          7,
+          68
+        ]
+      ]
+    }
+  },
+  "stacking_validation": {
+    "accuracy": 0.8066666666666666,
+    "precision": 0.73,
+    "recall": 0.9733333333333334,
+    "f1": 0.8342857142857143,
+    "roc_auc": 0.8691555555555556,
+    "confusion_matrix": [
+      [
+        48,
+        27
+      ],
+      [
+        2,
+        73
+      ]
+    ]
+  },
+  "test_results": {
+    "logistic_regression": {
+      "accuracy": 0.7933333333333333,
+      "precision": 0.7156862745098039,
+      "recall": 0.9733333333333334,
+      "f1": 0.8248587570621468,
+      "roc_auc": 0.7866666666666666,
+      "confusion_matrix": [
+        [
+          46,
+          29
+        ],
+        [
+          2,
+          73
+        ]
+      ]
+    },
+    "random_forest": {
+      "accuracy": 0.8066666666666666,
+      "precision": 0.7211538461538461,
+      "recall": 1.0,
+      "f1": 0.8379888268156425,
+      "roc_auc": 0.795911111111111,
+      "confusion_matrix": [
+        [
+          46,
+          29
+        ],
+        [
+          0,
+          75
+        ]
+      ]
+    },
+    "xgboost": {
+      "accuracy": 0.7533333333333333,
+      "precision": 0.7111111111111111,
+      "recall": 0.8533333333333334,
+      "f1": 0.7757575757575758,
+      "roc_auc": 0.7770666666666667,
+      "confusion_matrix": [
+        [
+          49,
+          26
+        ],
+        [
+          11,
+          64
+        ]
+      ]
+    },
+    "stacking_ensemble": {
+      "accuracy": 0.7933333333333333,
+      "precision": 0.72,
+      "recall": 0.96,
+      "f1": 0.8228571428571428,
+      "roc_auc": 0.7891555555555555,
+      "confusion_matrix": [
+        [
+          47,
+          28
+        ],
+        [
+          3,
+          72
+        ]
+      ]
+    }
+  }
+}
