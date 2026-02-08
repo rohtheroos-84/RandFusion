@@ -73,13 +73,13 @@
 **Goal:** Convert raw token batches into a structured feature matrix ready for ML.
 
 ### Tasks
-- [ ] Run `FeatureExtractor` on every batch from Phase 1
-- [ ] Produce a feature matrix: rows = batches, columns = features, last column = label
-- [ ] Perform exploratory data analysis (EDA)
+- [x] Run `FeatureExtractor` on every batch from Phase 1
+- [x] Produce a feature matrix: rows = batches, columns = features, last column = label
+- [x] Perform exploratory data analysis (EDA)
   - Feature distributions for strong vs. weak classes
   - Correlation heatmap between features
   - Identify redundant or uninformative features
-- [ ] Save processed dataset (`data/processed/features.csv`)
+- [x] Save processed dataset (`data/processed/features.csv`)
 
 ### Deliverables
 - Clean feature dataset
