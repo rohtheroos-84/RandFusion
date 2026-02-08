@@ -1,0 +1,11 @@
+generator,n_samples,correct,accuracy,true_label
+xor_collapse_8,11,0,0.0,0
+xor_collapse_4,5,0,0.0,0
+predictable_seed,13,1,0.07692307692307693,0
+secrets_csprng,36,33,0.9166666666666666,1
+os_urandom,39,39,1.0,1
+lcg_small_state,9,9,1.0,0
+biased_055,10,10,1.0,0
+biased_070,9,9,1.0,0
+repeating_seed_32,7,7,1.0,0
+repeating_seed_16,11,11,1.0,0

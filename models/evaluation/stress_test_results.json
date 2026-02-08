@@ -1,0 +1,38 @@
+{
+  "mersenne_twister": {
+    "predicted": 1,
+    "label": "STRONG",
+    "confidence": 0.7600792988605971,
+    "note": "Mersenne Twister is NOT cryptographically secure but passes many statistical tests."
+  },
+  "constant_bytes": {
+    "predicted": 0,
+    "label": "WEAK",
+    "confidence": 0.9005,
+    "note": "Constant output has zero entropy. Model should classify as WEAK."
+  },
+  "strong_64bit": {
+    "predicted": 1,
+    "label": "STRONG",
+    "confidence": 0.6387900432900434,
+    "note": "CSPRNG tokens at 64 bits (trained on 128-bit tokens)."
+  },
+  "strong_256bit": {
+    "predicted": 0,
+    "label": "WEAK",
+    "confidence": 0.6113589256967668,
+    "note": "CSPRNG tokens at 256 bits (trained on 128-bit tokens)."
+  },
+  "small_batch_10": {
+    "predicted": 0,
+    "label": "WEAK",
+    "confidence": 0.5731309523809522,
+    "note": "Strong CSPRNG with only 10 tokens (trained on 1000-token batches)."
+  },
+  "small_batch_50": {
+    "predicted": 0,
+    "label": "WEAK",
+    "confidence": 0.5175396825396825,
+    "note": "Strong CSPRNG with only 50 tokens (trained on 1000-token batches)."
+  }
+}
