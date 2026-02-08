@@ -50,17 +50,17 @@
 **Goal:** Run classical randomness tests on each token batch and extract numerical features.
 
 ### Tasks
-- [ ] Implement or wrap the following tests:
+- [x] Implement or wrap the following tests:
   - **NIST SP 800-22 subset:** Frequency (monobit), Block Frequency, Runs, Longest Run of Ones, Serial, Approximate Entropy, Cumulative Sums
   - **Shannon entropy** of the bitstream
   - **Min-entropy** estimation (most-common-value estimator)
   - **Run-length statistics** (mean, variance, max run)
   - **Autocorrelation** at multiple lags (e.g., lag 1, 2, 4, 8, 16)
   - **Compression ratio** (zlib compressed size / original size)
-- [ ] Each test returns one or more numerical values (p-values, test statistics, ratios)
-- [ ] Build a `FeatureExtractor` class that takes a token batch → returns a feature vector
-- [ ] Handle edge cases: all-zero batches, very short streams, NaN outputs
-- [ ] Document each feature with name, description, expected range
+- [x] Each test returns one or more numerical values (p-values, test statistics, ratios)
+- [x] Build a `FeatureExtractor` class that takes a token batch → returns a feature vector
+- [x] Handle edge cases: all-zero batches, very short streams, NaN outputs
+- [x] Document each feature with name, description, expected range
 
 ### Deliverables
 - `src/features/` module with individual test implementations
