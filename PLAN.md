@@ -116,11 +116,11 @@
 **Goal:** Quantify how much the ML ensemble improves over naive approaches.
 
 ### Tasks
-- [ ] Implement **Baseline 1 – Entropy Threshold**: classify as weak if Shannon entropy < threshold
-- [ ] Implement **Baseline 2 – All-Tests-Pass**: classify as weak if any NIST test p-value < 0.01
-- [ ] Evaluate both baselines on the same test set
-- [ ] Compare: accuracy, recall on weak class, ROC-AUC
-- [ ] Produce comparison table and ROC curve overlay plot
+- [x] Implement **Baseline 1 – Entropy Threshold**: classify as weak if Shannon entropy < threshold
+- [x] Implement **Baseline 2 – All-Tests-Pass**: classify as weak if any NIST test p-value < 0.01
+- [x] Evaluate both baselines on the same test set
+- [x] Compare: accuracy, recall on weak class, ROC-AUC
+- [x] Produce comparison table and ROC curve overlay plot
 
 ### Deliverables
 - Baseline implementations in `src/baselines/`

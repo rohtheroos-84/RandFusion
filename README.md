@@ -137,8 +137,8 @@ python -m src.models.evaluate
 | 2     | Statistical randomness tests             | COMPLETED   |
 | 3     | Feature dataset construction             | COMPLETED   |
 | 4     | ML model training & ensemble             | COMPLETED   |
-| 5     | Baseline comparison                      | IN PROGRESS |
-| 6     | Explainability & interpretability        | Not started |
+| 5     | Baseline comparison                      | COMPLETED   |
+| 6     | Explainability & interpretability        | IN PROGRESS |
 | 7     | Evaluation, reporting & documentation    | Not started |
 
 See [PLAN.md](PLAN.md) for detailed breakdown of each phase.
