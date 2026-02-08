@@ -133,16 +133,16 @@
 **Goal:** Make every ML decision transparent and auditable.
 
 ### Tasks
-- [ ] Compute **global feature importance** (from Random Forest + XGBoost)
-- [ ] Generate **SHAP values** for the ensemble
+- [x] Compute **global feature importance** (from Random Forest + XGBoost)
+- [x] Generate **SHAP values** for the ensemble
   - Summary plot (feature importance across all samples)
   - Dependence plots for top features
   - Force plots for individual sample explanations
-- [ ] Build a `explain_decision(sample)` function that returns:
+- [x] Build a `explain_decision(sample)` function that returns:
   - Predicted class + confidence
   - Top contributing features (positive and negative)
   - Natural-language summary sentence
-- [ ] Document interpretation guidelines for end users
+- [x] Document interpretation guidelines for end users
 
 ### Deliverables
 - SHAP integration in `src/explainability/`
