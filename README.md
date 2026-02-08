@@ -106,8 +106,7 @@ RandFusion/
 git clone https://github.com/<your-username>/RandFusion.git
 cd RandFusion
 python -m venv venv
-venv\Scripts\activate        # Windows
-# source venv/bin/activate   # macOS/Linux
+venv\Scripts\activate    # On Windows
 pip install -r requirements.txt
 ```
 
@@ -133,7 +132,7 @@ python -m src.models.evaluate
 
 | Phase | Description                              | Status      |
 |-------|------------------------------------------|-------------|
-| 0     | Project setup & environment              | Not started |
+| 0     | Project setup & environment              | IN PROGRESS |
 | 1     | Synthetic dataset generation             | Not started |
 | 2     | Statistical randomness tests             | Not started |
 | 3     | Feature dataset construction             | Not started |
