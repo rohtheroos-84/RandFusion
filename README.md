@@ -132,8 +132,8 @@ python -m src.models.evaluate
 
 | Phase | Description                              | Status      |
 |-------|------------------------------------------|-------------|
-| 0     | Project setup & environment              | IN PROGRESS |
-| 1     | Synthetic dataset generation             | Not started |
+| 0     | Project setup & environment              | COMPLETED   |
+| 1     | Synthetic dataset generation             | IN PROGRESS |
 | 2     | Statistical randomness tests             | Not started |
 | 3     | Feature dataset construction             | Not started |
 | 4     | ML model training & ensemble             | Not started |

@@ -7,12 +7,12 @@
 **Goal:** Establish a clean, reproducible development environment.
 
 ### Tasks
-- [ ] Initialize Python project structure (src/, tests/, data/, notebooks/, configs/)
-- [ ] Set up virtual environment and `requirements.txt` / `pyproject.toml`
-- [ ] Core dependencies: NumPy, SciPy, scikit-learn, XGBoost, SHAP, matplotlib
-- [ ] Set up logging, configuration management (YAML-based), and random seed control
-- [ ] Create `.gitignore`, linting config, and formatting rules
-- [ ] Write a minimal "hello world" pipeline to verify end-to-end tooling
+- [x] Initialize Python project structure (src/, tests/, data/, notebooks/, configs/)
+- [x] Set up virtual environment and `requirements.txt` / `pyproject.toml`
+- [x] Core dependencies: NumPy, SciPy, scikit-learn, XGBoost, SHAP, matplotlib
+- [x] Set up logging, configuration management (YAML-based), and random seed control
+- [x] Create `.gitignore`, linting config, and formatting rules
+- [x] Write a minimal "hello world" pipeline to verify end-to-end tooling
 
 ### Deliverables
 - Working project skeleton that can be cloned and run with zero friction
