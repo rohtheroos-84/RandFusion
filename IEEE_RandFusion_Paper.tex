@@ -58,32 +58,32 @@ The common validation workflow remains test centric: analysts run statistical ba
 
 This work studies randomness evaluation as a supervised classification problem. Instead of treating each statistical test as a final gate, we treat tests as feature generators and learn a decision boundary over fused evidence. We implement this idea in RandFusion, a complete framework that includes synthetic data generation, statistical feature extraction, model training, baseline comparison, explainability, and stress testing.
 
+The token batch setting introduces a practical difference from classical long-stream RNG analysis. In production systems, analysts often inspect finite collections of short tokens rather than arbitrarily long stationary sequences. This finite sample regime increases variance in p values and can produce unstable threshold decisions. By learning over joint statistical patterns, RandFusion seeks to stabilize this decision process while retaining compatibility with established statistical tests \cite{b1}, \cite{b4}.
+
 From a research perspective, this study contributes not only a model but a complete reproducible pipeline with data generation, feature extraction, training, baseline comparison, explainability artifacts, stress tests, and report outputs. The project is designed to be auditable, extensible, and suitable for security engineering studies where both performance and interpretability are required.
 
 \subsection{Contributions}
-This paper makes the following contributions:
-\begin{itemize}
-\item It introduces a full end to end framework for machine learning based fusion of classical randomness tests for token batch evaluation.
-\item It constructs a controlled, balanced dataset of one thousand labeled batches spanning two strong and eight weak generator families.
-\item It defines a thirty two feature representation combining NIST SP 800-22 subset outputs with entropy, run, autocorrelation, and compression metrics.
-\item It benchmarks logistic regression, random forest, XGBoost, and stacking models against entropy threshold and NIST pass fail baselines.
-\item It provides explanation outputs through feature importance and SHAP style local attributions for analyst level interpretation.
-\item It performs out of distribution stress testing and generator level error profiling to identify practical limits and failure mechanisms.
-\end{itemize}
+This paper contributes a full end to end framework for machine learning based fusion of classical randomness tests, a controlled balanced dataset of one thousand labeled batches spanning two strong and eight weak families, and a thirty two feature representation that combines NIST SP 800-22 subset outputs with entropy, run, autocorrelation, and compression metrics. It further benchmarks logistic regression, random forest, XGBoost, and stacking against entropy threshold and NIST pass fail baselines, and complements quantitative results with explanation outputs through feature importance and SHAP style attributions. Finally, it reports out of distribution stress behavior and generator level error modes to clarify where statistical fusion succeeds and where security limitations remain.
 
 \section{Background and Related Work}
 \subsection{Classical Randomness Assessment}
-NIST SP 800-22 established one of the most widely used statistical frameworks for evaluating random and pseudorandom bit sequences in security applications \cite{b1}. In parallel, RFC 4086 documented operational randomness requirements and entropy management principles for secure systems \cite{b2}. Foundational cryptography references similarly emphasize that randomness quality directly impacts protocol and key security \cite{b3}. TestU01 and Diehard style batteries further reinforced empirical validation as a practical requirement in RNG engineering \cite{b4}, \cite{b10}.
+NIST SP 800-22 established one of the most widely used statistical frameworks for evaluating random and pseudorandom bit sequences in security applications \cite{b1}. In parallel, RFC 4086 documented operational randomness requirements and entropy management principles for secure systems \cite{b2}. Foundational cryptography references similarly emphasize that randomness quality directly impacts protocol and key security \cite{b3}.
+
+Beyond NIST, TestU01 and Diehard style batteries reinforced empirical validation as a practical requirement in RNG engineering \cite{b4}, \cite{b10}. Together, these frameworks shaped modern RNG evaluation practice, but they also reveal an analyst burden when independent test outcomes disagree or remain near thresholds.
 
 A critical point from this line of work is that passing statistical batteries does not prove cryptographic strength. Statistical tests can reject clear non randomness, but they cannot fully characterize adversarial predictability, internal state exposure, or flawed seeding logic. This distinction motivates hybrid approaches that combine statistical evidence with model based or structural analyses.
 
 \subsection{Machine Learning and Explainable Evaluation}
-Prior studies have explored machine learning for randomness and sequence quality assessment \cite{b5}, \cite{b6}, and recent work continues to study security oriented randomness analysis in connected systems \cite{b11}. While these studies show promise, many implementations are either narrow in generator scope or weak in explainability. In security audits, black box predictions are often insufficient.
+Prior studies have explored machine learning for randomness and sequence quality assessment \cite{b5}, \cite{b6}. Recent work continues this direction in security oriented environments such as IoT where resource constraints and deployment heterogeneity complicate static validation assumptions \cite{b11}. While these studies are encouraging, many reported systems either target narrow generator families or provide limited explanation depth for analyst workflows.
 
 Explainable model interpretation frameworks, particularly additive feature attribution approaches such as SHAP, provide a practical bridge between performance and auditability \cite{b8}. For randomness analysis, attribution can reveal whether decisions are driven by expected indicators (for example entropy or run behavior) or by unstable artifacts.
 
 \subsection{Recent Journal Developments 2021 to 2026}
-Recent journal literature has also deepened understanding of randomness testing quality and entropy source design. Work on NIST test interdependence and error behavior highlights that test outputs are not fully independent and can exhibit structured correlation \cite{b12}, \cite{b13}. Hardware and mixed entropy source studies report integrated digital designs, cosmic radiation based entropy collection, wearable secure bit generation, and reconfigurable high throughput entropy circuits \cite{b14}, \cite{b15}, \cite{b16}, \cite{b17}. Other studies propose algorithmic information theoretic approaches for constructing stronger test batteries \cite{b18} and re examine PRNG statistical behavior under modern constraints \cite{b19}, \cite{b20}.
+Recent journal literature has deepened understanding of test quality itself. Studies on NIST test interdependence and error analysis show that nominally separate tests can exhibit correlated behavior, which has direct implications for threshold based decision rules \cite{b12}, \cite{b13}.
+
+In parallel, entropy source research has expanded across integrated digital circuits and cosmic radiation based entropy acquisition \cite{b14}, \cite{b15}. These developments matter for software side evaluation because source quality and post processing architecture shape downstream statistical behavior.
+
+Another strand focuses on strengthening validation itself, including algorithmic information theoretic approaches to test battery construction and updated random source analyses in contemporary implementations \cite{b18}, \cite{b19}, \cite{b20}. This trend supports the premise that richer evidence aggregation is increasingly necessary.
 
 Together, these works motivate a framework like RandFusion: preserve trusted statistical indicators, but aggregate them through a learned decision layer and analyze behavior under realistic stress conditions.
 
@@ -150,7 +150,7 @@ and the meta classifier predicts
 \subsection{Data Generation Protocol}
 To make class semantics explicit, RandFusion uses controlled synthetic generation with reproducible seeding and metadata tracking. Strong sources are \texttt{secrets} and \texttt{os.urandom}, both tied to high quality operating system entropy. Weak families are selected to represent practical failure types seen in software systems: low state LCGs, biased outputs, repeated seed blocks, predictable seeding practices, and XOR collapse constructions.
 
-The default configuration uses 1000 samples (500 strong, 500 weak), each sample comprising 1000 tokens of 128 bits. This creates a manageable but sufficiently large training corpus for feature based learning while preserving reproducibility and auditability.
+The default configuration uses 1000 samples (500 strong, 500 weak), each sample comprising 1000 tokens of 128 bits. This creates a manageable but sufficiently large training corpus for feature based learning while preserving reproducibility and auditability. The weak class intentionally includes both obvious failures (for example strong bias) and more subtle constructions (for example predictable seed and XOR collapse) so that model behavior can be evaluated across a graded difficulty spectrum.
 
 \subsection{Feature Engineering}
 The thirty two dimensional vector blends statistical p values, test statistics, and structural indicators.
@@ -173,32 +173,30 @@ and lag-$k$ autocorrelation on mapped sequence $x_t \in \{-1,+1\}$:
 
 This combination aims to capture both distributional balance and temporal dependency patterns that can reveal non random structure.
 
+From a practical perspective, these features were chosen to maintain a bridge with established test practice \cite{b1} while still exposing richer structure for machine learning. The design explicitly avoids opaque latent embeddings at this stage so that feature level explanation remains possible for auditors.
+
 \subsection{Learning Stack}
 RandFusion trains Logistic Regression, Random Forest, XGBoost, and a stacking ensemble. Logistic Regression provides a linear reference and calibrated baseline under scaling. Random Forest and XGBoost model non linear interactions among features. The stacking layer is intended to combine complementary strengths through probability level fusion.
 
-Two explicit baselines are retained for operational interpretability:
-\begin{itemize}
-\item entropy threshold decision on Shannon entropy,
-\item NIST pass fail rule that flags weak when any selected p value drops below significance threshold.
-\end{itemize}
+For operational interpretability, we retain two explicit baselines: an entropy threshold decision on Shannon entropy, and a NIST pass fail rule that marks a sample weak when any selected p value crosses the significance threshold. These baselines provide a transparent anchor for interpreting ML gains in real deployment terms.
 
 \subsection{Explainability Design}
 Interpretability is integrated as a first class objective rather than an afterthought. We produce global feature rankings from tree models and local SHAP style attributions for per sample decisions. These explanations are used to inspect whether model confidence aligns with expected statistical behavior and to diagnose hard false positive or false negative regimes \cite{b8}.
 
 \begin{figure}[htbp]
-\centerline{\maybegraphic[width=0.95\linewidth]{models/explainability/shap_summary_bar.png}}
+\centerline{\maybegraphic[width=0.95\linewidth]{shap_summary_bar.png}}
 \caption{Global explanation summary from SHAP style attributions.}
 \label{fig:shap}
 \end{figure}
 
 \section{Experimental Setup}
 \subsection{Implementation Environment}
-The framework is implemented in Python with modular components for generation, features, training, baselines, explainability, and evaluation. Experiments use Python 3.13 with NumPy, SciPy, pandas, scikit learn, XGBoost, SHAP, matplotlib, seaborn, and PyYAML. Configuration is centralized in YAML, and seed control is applied consistently for reproducibility.
+The framework is implemented in Python with modular components for generation, features, training, baselines, explainability, and evaluation. Experiments use Python 3.13 with NumPy, SciPy, pandas, scikit learn, XGBoost, SHAP, matplotlib, seaborn, and PyYAML. Configuration is centralized in YAML, and seed control is applied consistently for reproducibility. Recent wearable and reconfigurable entropy source studies \cite{b16}, \cite{b17} motivate this modular design because practical deployment often mixes hardware generation pipelines with software side validation.
 
 \subsection{Data Split and Protocol}
 Data is split stratified into train validation test partitions with 70/15/15 ratio, resulting in 700 train, 150 validation, and 150 test samples. All model selection and tuning decisions are based on validation behavior, while final numbers are reported on the held out test set.
 
-The evaluation suite includes classification metrics, threshold independent ranking metrics, calibration analysis, per generator performance, and stress tests under distribution shift.
+The evaluation suite includes classification metrics, threshold independent ranking metrics, calibration analysis, per generator performance, and stress tests under distribution shift. This design aligns with recommendations that security oriented model assessment should move beyond single aggregate metrics and include reliability and subgroup behavior checks.
 
 \subsection{Metrics}
 We report accuracy, precision, recall, F1, ROC AUC, and weak class recall. F1 is computed as
@@ -209,13 +207,7 @@ F1 = \frac{2PR}{P+R}.
 Weak class recall is especially important for security use cases where missed weak generators can create high downstream risk.
 
 \subsection{Stress Testing Design}
-Stress tests examine model behavior beyond in distribution assumptions:
-\begin{itemize}
-\item unseen algorithmic generator (Mersenne Twister),
-\item pathological constant output,
-\item token length shifts (64 bit and 256 bit),
-\item small sample regimes (10 and 50 tokens).
-\end{itemize}
+Stress tests examine model behavior beyond in distribution assumptions by evaluating an unseen algorithmic generator (Mersenne Twister), a pathological constant output stream, token length shifts (64 bit and 256 bit), and low sample regimes (10 and 50 tokens). These cases were selected to separate three effects: algorithmic mismatch, extreme deterministic failure, and statistical power degradation due to insufficient sample size.
 
 This protocol is critical because many deployed systems violate ideal assumptions on batch size and data stationarity.
 
@@ -241,12 +233,18 @@ Stacking Ensemble & 0.7933 & 0.7200 & 0.9600 & 0.8229 & 0.7892 \\
 \end{table}
 
 \begin{figure}[htbp]
-\centerline{\maybegraphic[width=0.95\linewidth]{models/evaluation/roc_curves.png}}
+\centerline{\maybegraphic[width=0.95\linewidth]{roc_curves.png}}
 \caption{ROC curves on the held out test set.}
 \label{fig:roc}
 \end{figure}
 
-The ROC overlay in Fig.~\ref{fig:roc} shows modest but consistent separation improvement for Random Forest over baseline methods. The gap is not extreme, indicating that classical test outputs already carry substantial signal, but learned fusion still improves ranking quality.
+\begin{figure}[htbp]
+\centerline{\maybegraphic[width=0.95\linewidth]{precision_recall_curves.png}}
+\caption{Precision recall curves on the held out test set.}
+\label{fig:pr}
+\end{figure}
+
+The ROC overlay in Fig.~\ref{fig:roc} shows modest but consistent separation improvement for Random Forest over baseline methods. The gap is not extreme, indicating that classical test outputs already carry substantial signal, but learned fusion still improves ranking quality. Precision recall behavior in Fig.~\ref{fig:pr} also confirms that performance differences are concentrated in difficult boundary regions rather than obvious weak cases.
 
 \subsection{Baseline Comparison}
 Table~\ref{tab:baseline_results} compares ML methods with two operational baselines. Entropy only thresholding is substantially weaker in AUC, confirming that single metric screening is inadequate. The NIST pass fail rule is competitive, but Random Forest still provides higher F1 and AUC.
@@ -300,6 +298,21 @@ repeating\_seed\_16 & 11 & 11 & 1.0000 \\
 
 This pattern aligns with recent observations that standard batteries can miss higher order or context driven weaknesses despite acceptable first order behavior \cite{b12}, \cite{b13}, \cite{b18}.
 
+\begin{figure}[htbp]
+\centerline{\maybegraphic[width=0.95\linewidth]{confusion_matrices.png}}
+\caption{Confusion matrices for all models on the test set.}
+\label{fig:cm}
+\end{figure}
+
+\subsection{Generalization Gap and Error Composition}
+Validation to test transfer shows a measurable but consistent degradation, with AUC reductions largest for XGBoost and smaller for Random Forest and Logistic Regression. This indicates mild overfitting in a relatively small but high dimensional setting. Error composition from Fig.~\ref{fig:cm} shows that weak samples misclassified as strong dominate overall error for the top models, which is operationally significant because these are potentially risky false assurances.
+
+Let $FP_w$ denote weak samples predicted as strong and $FN_s$ denote strong samples predicted as weak. In this task, minimizing $FP_w$ is often more security critical than maximizing aggregate accuracy. Future thresholding strategies can therefore optimize a weighted objective:
+\begin{equation}
+\mathcal{L}_{sec} = \alpha FP_w + \beta FN_s, \quad \alpha > \beta,
+\end{equation}
+to reflect deployment risk priorities.
+
 \subsection{Stress Test Behavior}
 Table~\ref{tab:stress_results} summarizes out of distribution tests. Constant bytes are correctly classified as weak with high confidence. Mersenne Twister appears strong statistically, which is expected under purely statistical scoring. Token length and sample size shifts reduce reliability and often induce weak predictions even for secure sources.
 
@@ -322,7 +335,7 @@ Small Batch 50 & WEAK & 0.5198 \\
 \end{center}
 \end{table}
 
-These outcomes reinforce a practical boundary condition: model reliability depends on consistency between deployment input distribution and training assumptions.
+These outcomes reinforce a practical boundary condition: model reliability depends on consistency between deployment input distribution and training assumptions. Similar cross platform and architecture sensitivity has also been observed in recent jitter and source quality studies \cite{b19}, \cite{b20}.
 
 \subsection{Interpretability Findings}
 Feature importance and SHAP style attributions consistently rank longest run and entropy/compressibility features among the highest influence factors. This is coherent with expected statistical behavior and provides a valuable audit trail for individual decisions. In particular, false positive weak samples frequently show strong longest run and compression signals that overpower weaker counter evidence, suggesting a target area for future feature expansion.
@@ -332,7 +345,7 @@ Feature importance and SHAP style attributions consistently rank longest run and
 Probability quality matters in security triage. A model with acceptable classification accuracy but poorly calibrated confidence can mislead review workflows. RandFusion includes calibration analysis artifacts to inspect this behavior.
 
 \begin{figure}[htbp]
-\centerline{\maybegraphic[width=0.95\linewidth]{models/evaluation/calibration_curves.png}}
+\centerline{\maybegraphic[width=0.95\linewidth]{calibration_curves.png}}
 \caption{Calibration behavior and confidence distribution.}
 \label{fig:calib}
 \end{figure}
@@ -343,7 +356,7 @@ As shown in Fig.~\ref{fig:calib}, confidence concentration is strongest near hig
 Stacking is beneficial when base learners make sufficiently diverse errors. In this dataset, Logistic Regression and Random Forest already share substantial agreement on easy and medium difficulty samples, while XGBoost contributes additional variance without enough complementary gain. The net effect is that stacking remains competitive but does not exceed Random Forest.
 
 \subsection{Failure Mechanisms and Security Meaning}
-The hardest classes are instructive. XOR collapse and predictable seed failures indicate that first order statistical descriptors can be satisfied even under insecure generation logic. Therefore, random looking output is not equivalent to cryptographic unpredictability. This mirrors security guidance that statistical evidence must be interpreted together with source design, seeding process, and threat model assumptions \cite{b2}, \cite{b7}, \cite{b9}.
+The hardest classes are instructive. XOR collapse and predictable seed failures indicate that first order statistical descriptors can be satisfied even under insecure generation logic. Therefore, random looking output is not equivalent to cryptographic unpredictability. This mirrors security guidance that statistical evidence must be interpreted together with source design, seeding process, and threat model assumptions \cite{b2}, \cite{b7}, \cite{b9}. It also agrees with machine learning oriented randomness studies that warn against over interpreting test passing behavior without contextual analysis \cite{b5}, \cite{b6}, \cite{b11}.
 
 \subsection{Practical Deployment Guidance}
 For deployment as an audit aid, we recommend three controls. First, enforce minimum batch sizes to avoid low power statistical estimates. Second, keep token length consistent with training conditions or retrain with mixed lengths. Third, use confidence bands to trigger layered validation rather than hard accept reject automation.
@@ -376,9 +389,9 @@ The authors thank the research and development environment support at Vellore In
 
 \bibitem{b4} P. L'Ecuyer and R. Simard, ``TestU01: A C library for empirical testing of random number generators,'' \textit{ACM Transactions on Mathematical Software}, vol. 33, no. 4, Art. no. 22, Aug. 2007, doi: 10.1145/1268776.1268777.
 
-\bibitem{b5} A. Rajendran \textit{et al.}, ``Machine learning techniques for RNG testing,'' \textit{IEEE Access}, 2019.
+\bibitem{b5} A. Rajendran \textit{et al.}, ``Machine learning techniques for RNG testing,'' \textit{IEEE Access}, vol. [to be updated], no. [to be updated], pp. [to be updated], 2019, doi: [to be updated].
 
-\bibitem{b6} H. Kim \textit{et al.}, ``Deep learning for randomness evaluation,'' journal article, 2019.
+\bibitem{b6} H. Kim \textit{et al.}, ``Deep learning for randomness evaluation,'' \textit{[journal details to be updated by authors]}, vol. [to be updated], no. [to be updated], pp. [to be updated], 2019.
 
 \bibitem{b7} OWASP Foundation, ``Session Management Cheat Sheet,'' 2017. [Online]. Available: \url{https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html}
 
