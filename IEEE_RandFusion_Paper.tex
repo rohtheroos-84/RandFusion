@@ -93,23 +93,32 @@ RandFusion processes token batches through a modular pipeline from bitstream con
 
 \begin{figure*}[t]
 \centering
+\resizebox{0.97\textwidth}{!}{%
 \begin{tikzpicture}[
-node distance=0.9cm and 1.2cm,
-box/.style={draw, rounded corners, minimum height=1cm, minimum width=2.35cm, align=center},
-smallbox/.style={draw, rounded corners, minimum height=0.9cm, minimum width=2.1cm, align=center},
-arrow/.style={-{Latex[length=2mm]}, thick}
+font=\small,
+node distance=0.9cm and 1.0cm,
+stageA/.style={draw=blue!70!black, fill=blue!10, rounded corners, minimum height=1.0cm, minimum width=2.2cm, align=center, line width=0.8pt},
+stageB/.style={draw=cyan!65!black, fill=cyan!12, rounded corners, minimum height=1.0cm, minimum width=2.45cm, align=center, line width=0.8pt},
+stageC/.style={draw=teal!70!black, fill=teal!12, rounded corners, minimum height=1.0cm, minimum width=3.7cm, align=center, line width=0.8pt},
+stageD/.style={draw=purple!70!black, fill=purple!10, rounded corners, minimum height=1.0cm, minimum width=2.45cm, align=center, line width=0.8pt},
+modelLR/.style={draw=orange!75!black, fill=orange!15, rounded corners, minimum height=0.95cm, minimum width=1.95cm, align=center, line width=0.8pt},
+modelRF/.style={draw=green!65!black, fill=green!14, rounded corners, minimum height=0.95cm, minimum width=1.95cm, align=center, line width=0.8pt},
+modelXGB/.style={draw=red!65!black, fill=red!12, rounded corners, minimum height=0.95cm, minimum width=1.95cm, align=center, line width=0.8pt},
+modelSTK/.style={draw=violet!70!black, fill=violet!12, rounded corners, minimum height=0.95cm, minimum width=1.95cm, align=center, line width=0.8pt},
+outputBox/.style={draw=black!75, fill=gray!10, rounded corners, minimum height=1.25cm, minimum width=5.6cm, align=center, line width=0.9pt},
+arrow/.style={-{Latex[length=2.2mm]}, line width=0.85pt, draw=black!80}
 ]
-\node[box] (input) {Token Batch Input};
-\node[box, right=of input] (prep) {Preprocessing and\\Bitstream Build};
-\node[box, right=of prep] (tests) {Statistical Tests\\NIST, Entropy, Runs, Autocorr, Compression};
-\node[box, right=of tests] (feat) {32 Dimensional\\Feature Vector};
+\node[stageA] (input) {Token Batch Input};
+\node[stageB, right=of input] (prep) {Preprocessing and\\Bitstream Build};
+\node[stageC, right=of prep] (tests) {Statistical Tests\\NIST, Entropy, Runs, Autocorr, Compression};
+\node[stageD, right=of tests] (feat) {32 Dimensional\\Feature Vector};
 
-\node[smallbox, below=of feat, xshift=-3.4cm] (lr) {Logistic\\Regression};
-\node[smallbox, below=of feat, xshift=-1.1cm] (rf) {Random\\Forest};
-\node[smallbox, below=of feat, xshift=1.2cm] (xgb) {XGBoost};
-\node[smallbox, below=of feat, xshift=3.5cm] (stk) {Stacking\\Ensemble};
+\node[modelLR, below=of feat, xshift=-3.2cm] (lr) {Logistic\\Regression};
+\node[modelRF, below=of feat, xshift=-1.05cm] (rf) {Random\\Forest};
+\node[modelXGB, below=of feat, xshift=1.1cm] (xgb) {XGBoost};
+\node[modelSTK, below=of feat, xshift=3.25cm] (stk) {Stacking\\Ensemble};
 
-\node[box, below=1.4cm of rf, minimum width=4.8cm] (out) {Strong or Weak Verdict\\Confidence Score\\Explanation via SHAP and Feature Importance};
+\node[outputBox, below=1.4cm of rf] (out) {Strong or Weak Verdict\\Confidence Score\\Explanation via SHAP and Feature Importance};
 
 \draw[arrow] (input) -- (prep);
 \draw[arrow] (prep) -- (tests);
@@ -122,7 +131,8 @@ arrow/.style={-{Latex[length=2mm]}, thick}
 \draw[arrow] (rf) -- (out);
 \draw[arrow] (xgb) -- (out);
 \draw[arrow] (stk) -- (out);
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \caption{RandFusion end to end architecture.}
 \label{fig:architecture}
 \end{figure*}
