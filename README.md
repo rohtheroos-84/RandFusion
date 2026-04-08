@@ -70,8 +70,10 @@ RandFusion/
 │   ├── models/         # ML training, ensemble, and inference
 │   ├── baselines/      # Naive baseline classifiers
 │   ├── explainability/ # SHAP integration and explanation utilities
+│   ├── dashboard/      # Streamlit dashboard for results visualization
 │   └── evaluation/     # Final evaluation, plots, stress tests, reporting
 ├── tests/              # Unit and integration tests
+├── DASHBOARD.md        # Dashboard usage and troubleshooting
 ├── PRD.md              # Product Requirements Document
 ├── PLAN.md             # Phased development plan
 ├── README.md           # This file
@@ -132,9 +134,47 @@ python -m src.explainability.run_explainability
 # Final evaluation & reporting
 python -m src.evaluation.evaluate
 
+# Launch dashboard
+streamlit run src/dashboard/app.py
+
 # Run all tests
 python -m pytest tests/ -v
 ```
+
+---
+
+## Dashboard
+
+RandFusion includes a lightweight Streamlit dashboard for artifact-driven analysis.
+
+### What it shows
+
+1. Model overview metrics from `models/results.json`
+2. Confusion matrix (per model + combined artifact)
+3. Per-generator error analysis from `models/evaluation/per_generator_accuracy.csv`
+4. SHAP summary visuals and top mean absolute SHAP features
+5. Calibration reliability view from `models/evaluation/calibration_curves.png`
+
+### Run
+
+```bash
+streamlit run src/dashboard/app.py
+```
+
+### Prerequisite
+
+Run the core pipeline first so artifacts exist:
+
+```bash
+python -m src.generators.generate_dataset
+python -m src.features.extract_features
+python -m src.models.train
+python -m src.baselines.compare
+python -m src.explainability.run_explainability
+python -m src.evaluation.evaluate
+```
+
+For detailed dashboard notes, see [DASHBOARD.md](DASHBOARD.md).
 
 ---
 
