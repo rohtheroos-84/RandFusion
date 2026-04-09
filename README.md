@@ -74,6 +74,8 @@ RandFusion/
 │   └── evaluation/     # Final evaluation, plots, stress tests, reporting
 ├── tests/              # Unit and integration tests
 ├── DASHBOARD.md        # Dashboard usage and troubleshooting
+├── HOSTING_STREAMLIT.md # Streamlit deployment runbook
+├── runtime.txt         # Python runtime pin for cloud hosting
 ├── PRD.md              # Product Requirements Document
 ├── PLAN.md             # Phased development plan
 ├── README.md           # This file
@@ -175,6 +177,23 @@ python -m src.evaluation.evaluate
 ```
 
 For detailed dashboard notes, see [DASHBOARD.md](DASHBOARD.md).
+
+For deployment steps, see [HOSTING_STREAMLIT.md](HOSTING_STREAMLIT.md).
+
+---
+
+## Host the Dashboard
+
+Recommended path: Streamlit Community Cloud.
+
+Minimal steps:
+
+1. Push this repository to GitHub.
+2. Ensure required `models/` artifacts are committed for full visuals.
+3. Create a new app at https://share.streamlit.io/.
+4. Set main file to `src/dashboard/app.py`.
+
+Full guide: [HOSTING_STREAMLIT.md](HOSTING_STREAMLIT.md).
 
 ---
 
