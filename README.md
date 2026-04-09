@@ -149,6 +149,8 @@ python -m pytest tests/ -v
 
 RandFusion includes a lightweight Streamlit dashboard for artifact-driven analysis.
 
+Live dashboard: https://randfusion.streamlit.app
+
 ### What it shows
 
 1. Model overview metrics from `models/results.json`
@@ -192,6 +194,8 @@ Minimal steps:
 2. Ensure required `models/` artifacts are committed for full visuals.
 3. Create a new app at https://share.streamlit.io/.
 4. Set main file to `src/dashboard/app.py`.
+5. After deploy, use the hosted URL:
+      - https://randfusion.streamlit.app
 
 Full guide: [HOSTING_STREAMLIT.md](HOSTING_STREAMLIT.md).
 

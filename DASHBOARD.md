@@ -2,6 +2,8 @@
 
 A lightweight Streamlit app to inspect key RandFusion outputs without opening multiple files manually.
 
+Live dashboard: https://randfusion.streamlit.app
+
 ## File Location
 
 - App entrypoint: `src/dashboard/app.py`

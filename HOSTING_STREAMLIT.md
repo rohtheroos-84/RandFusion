@@ -8,6 +8,10 @@ This guide explains exactly how to host the RandFusion dashboard and what you ne
 - App entrypoint: `src/dashboard/app.py`
 - Python runtime: `python-3.11` (via `runtime.txt`)
 
+## Live Deployment
+
+- Public URL: https://randfusion.streamlit.app
+
 ## What Is Already Prepared
 
 The repo now includes:
@@ -56,10 +60,12 @@ If these files are not present, dashboard sections will still load and show warn
    - `src/dashboard/app.py`
 6. Leave advanced settings default, then deploy
 
+Deployment status: completed.
+
 ### 4. First deploy behavior
 
 - Build usually takes a few minutes
-- You will get a public URL (for example `https://<app-name>.streamlit.app`)
+- Public URL is live at: https://randfusion.streamlit.app
 
 ## If Build Fails
 
